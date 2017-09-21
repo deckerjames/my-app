@@ -2,23 +2,61 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Your next home!</title>
+<title>Apartment Details</title>
 </head>
 <body>
+
+	{{>/common/_navigation}}
 
 	<h1>Only ${{ apartment.rent }}</h1>
 	<p>
 		{{ apartment.address }}<br> {{ apartment.city }}, {{
 		apartment.state }} {{ apartment.zipCode }}
 	</p>
-	<dl>
-		<dt>Number of bedrooms</dt>
-		<dd>{{ apartment.numberOfBedrooms }}</dd>
-		<dt>Number of bathrooms</dt>
-		<dd>{{ apartment.numberOfBathrooms }}</dd>
-		<dt>Square footage</dt>
-		<dd>{{ apartment.squareFootage }}</dd>
-	</dl>
+	<ul style="list-style: none">
+		<li>Number of bedrooms: {{apartment.numberOfBedrooms}}</li>
+		<li>Number of bathrooms: {{apartment.numberOfBathrooms}}</li>
+		<li>Square footage: {{apartment.squareFootage}}</li>
+		<li>Number of likes: {{likes.size}}</li> 
+		
+		{{#noUser}}
+			<li><a href="/login">Login to LIKE this apartment</a></li>
+		{{/noUser}}
+		
+		{{#canLike}}
+			{{#apartment}}
+				<li>
+					<form method="post" action="/apartments/{{id}}/like">
+						<button>Like</button>
+					</form> 
+			{{/apartment}}
+				</li>
+		{{/canLike}} 
+		
+		{{#isOwner}} 
+		
+			{{#likes}} 
+				{{lastName}}, {{firstName}}
+			{{/likes}} 
+			
+			{{#isActive}} 
+				{{#apartment}}
+					<form method="post" action="/apartments/{{id}}/deactivations">
+						<button>Deactivate Listing</button>
+					</form>
+				{{/apartment}} 
+			{{/isActive}} 
+			
+			{{#notActive}} 
+				{{#apartment}}
+					<form method="post" action="/apartments/{{id}}/activations">
+						<button>Activate Listing</button>
+					</form>
+				{{/apartment}}
+			{{/notActive}} 
+			
+		{{/isOwner}}
+	</ul>
 
 </body>
 </html>

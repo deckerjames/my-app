@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	{{#currentUser}} Welcome, {{firstName}}
+	<a href="/apartments/mine">Your listings</a>
+	<a href="/apartments/new">Add a listing</a>
+	<a href="/logout">Logout</a> 
+	{{/currentUser}} 
+	
+	{{#noUser}}
+	<a href="/login">Login</a>
+	<a href="/users/new">Sign up</a> 
+	{{/noUser}}
+
+</body>
+</html>

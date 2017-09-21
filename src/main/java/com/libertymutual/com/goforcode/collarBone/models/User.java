@@ -1,52 +1,47 @@
 package com.libertymutual.com.goforcode.collarBone.models;
 
-public class User {
+import org.javalite.activejdbc.Model;
 
-    private String email;
-    private String password;
-    private String firstName;
-    private String lastName;
+public class User extends Model {
 
-    public User() {
-    }
+        public User() {}
+        
+        public User(String email, String password, String firstName, String lastName) {
+                setEmail(email);
+                setPassword(password);
+                setFirstName(firstName);
+                setLastName(lastName);
+        }
 
-    public User(String email, String password, String firstName, String lastName) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+        public String getEmail() {
+                return getString("email");
+        }
 
-    public String getEmail() {
-        return email;
-    }
+        public void setEmail(String email) {
+                set("email", email);
+        }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+        public String getPassword() {
+                return getString("password");
+        }
 
-    public String getPassword() {
-        return password;
-    }
+        public void setPassword(String password) {
+                set("password", password);
+        }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+        public String getFirstName() {
+                return getString("first_name");
+        }
 
-    public String getFirstName() {
-        return firstName;
-    }
+        public void setFirstName(String firstName) {
+                set("first_name", firstName);
+        }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+        public String getLastName() {
+                return getString("last_name");
+        }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
+        public void setLastName(String lastName) {
+                set("last_name", lastName);
+        }
 }

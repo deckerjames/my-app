@@ -2,18 +2,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Login page</title>
+<title>Welcome to your New HOME!</title>
 </head>
 <body>
 
-<h1>Login!</h1>
+	{{>/common/_navigation}}
 
-<form method="post" action="/login">
-	<input type="email" name="email" required placeholder="Your email">
-	<input type="password" name="password" required placeholder="Your password">
-	<button>Login</button>
-</form>
+	<h1>Please enter username and password</h1>
 
+	<form method="post" action="/login">
+		<input type="email" placeholder="email address" name="email">
+		<input type="password" placeholder="password" name="password">
+		<input type="hidden" name="returnPath" value={{returnPath}}>
+		<button>Submit</button>
+	</form>
 
 </body>
 </html>

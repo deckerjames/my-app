@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	{{>/common/_navigation}}
+
+	<h1>Create a new Apartment!</h1>
+
+	<form method="post" action="/apartments">
+		<ul style="list-style: none">
+			<li><input type="number" name="rent"
+				placeholder="rent amount" required></li>
+			<li><input type="number" name="number_of_bedrooms"
+				placeholder="bedrooms" required></li>
+			<li><input type="number" name="number_of_bathrooms"
+				placeholder="bathrooms" required></li>
+			<li><input type="number" name="square_footage"
+				placeholder="square footage" required></li>
+			<li><input type="text" name="address" placeholder="address"
+				required></li>
+			<li><input type="text" name="city" placeholder="city" required></li>
+			<li><input type="text" name="state" placeholder="state" required></li>
+			<li><input type="text" name="zip_code" placeholder="zip code" required></li>
+
+		</ul>
+		<button>Add Listing</button>
+	</form>
+
+</body>
+</html>

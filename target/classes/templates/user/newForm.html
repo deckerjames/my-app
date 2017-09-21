@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	{{>/common/_navigation}}
+
+	<h1>Please enter signup information</h1>
+
+	<form method="post" action="/users/new">
+		<ul style="list-style: none">
+			<li><input type="email" placeholder="email address" name="email"></li>
+			<li><input type="password" placeholder="password"
+				name="password"></li>
+			<li><input type="text" placeholder="first name" name="firstName"></li>
+			<li><input type="text" placeholder="last name" name="lastName"></li>
+		</ul>
+		<button>Sign up</button>
+	</form>
+
+</body>
+</html>
