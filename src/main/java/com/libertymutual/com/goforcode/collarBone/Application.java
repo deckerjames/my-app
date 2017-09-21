@@ -23,21 +23,21 @@ public class Application {
             ApartmentsUsers.deleteAll();
 
             User.deleteAll();
-            User luka = new User("luka@gmail", encryptedPW, "Luka", "Ralic");
-            luka.saveIt();
+            User james = new User("jamesdecker@hotmail.com", encryptedPW, "james", "decker");
+            james.saveIt();
 
             Apartment.deleteAll();
             Apartment apartment = new Apartment(62000, 1, 0, 350, "123 Main St", "San Francisco", "CA", "95215");
-            luka.add(apartment);
+            james.add(apartment);
             apartment.saveIt();
 
             apartment = new Apartment(1459, 5, 6, 4000, "123 Cowboy Way", "Houston", "TX", "77006");
             apartment.set("is_active", false);
-            luka.add(apartment);
+            james.add(apartment);
             apartment.saveIt();
 
             encryptedPW = BCrypt.hashpw("t", BCrypt.gensalt());
-            User test = new User("test@hotmail.com", encryptedPW, "first", "last");
+            User test = new User("test@gmail", encryptedPW, "first", "last");
             test.saveIt();
             apartment.add(test);
         }
@@ -45,13 +45,16 @@ public class Application {
         path("/apartments", () -> {
             before("/new", SecurityFilters.isAuthenticated);
             before("/mine", SecurityFilters.isAuthenticated);
+            before("/:id/likes", SecurityFilters.isAuthenticated);
+            before("/:id/activations", SecurityFilters.isOwner);
+            before("/:id/deactivations", SecurityFilters.isOwner);
             before("", SecurityFilters.isAuthenticated);
 
             get("/new", ApartmentController.newForm);
             get("/mine", ApartmentController.index);
             post("/:id/deactivations", ApartmentController.deactivate);
             post("/:id/activations", ApartmentController.activate);
-            post("/:id/like", ApartmentController.like);
+            post("/:id/likes", ApartmentController.like);
             get("/:id", ApartmentController.details);
             post("", ApartmentController.create);
         });
@@ -69,6 +72,6 @@ public class Application {
         get("/", HomeController.index);
         get("/login", SessionController.newForm);
         post("/login", SessionController.create);
-        get("/logout", SessionController.destroy);
+        post("/logout", SessionController.destroy);
     }
 }

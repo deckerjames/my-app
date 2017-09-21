@@ -20,17 +20,19 @@
 		<li>Number of likes: {{likes.size}}</li> 
 		
 		{{#noUser}}
-			<li><a href="/login">Login to LIKE this apartment</a></li>
+			{{#apartment}}
+				<li><a href="/login?returnPath=/apartments/{{id}}">Login to LIKE this apartment</a></li>
+			{{/apartment}}
 		{{/noUser}}
 		
 		{{#canLike}}
 			{{#apartment}}
 				<li>
-					<form method="post" action="/apartments/{{id}}/like">
-						<button>Like</button>
+					<form method="post" action="/apartments/{{id}}/likes">
+						<button>Like this apartment</button>
 					</form> 
-			{{/apartment}}
 				</li>
+			{{/apartment}}
 		{{/canLike}} 
 		
 		{{#isOwner}} 
@@ -42,7 +44,7 @@
 			{{#isActive}} 
 				{{#apartment}}
 					<form method="post" action="/apartments/{{id}}/deactivations">
-						<button>Deactivate Listing</button>
+						<button>Deactivate listing</button>
 					</form>
 				{{/apartment}} 
 			{{/isActive}} 
@@ -50,7 +52,7 @@
 			{{#notActive}} 
 				{{#apartment}}
 					<form method="post" action="/apartments/{{id}}/activations">
-						<button>Activate Listing</button>
+						<button>Activate listing</button>
 					</form>
 				{{/apartment}}
 			{{/notActive}} 

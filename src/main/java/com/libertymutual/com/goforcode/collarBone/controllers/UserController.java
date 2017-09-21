@@ -25,8 +25,8 @@ public class UserController {
                 User user = new User(
                                 req.queryParams("email"),
                                 encryptedPW,
-                                req.queryParams("firstName"),
-                                req.queryParams("lastName")
+                                req.queryParams("first_name"),
+                                req.queryParams("last_name")
                                 );
 
                 try(AutoCloseableDb db = new AutoCloseableDb()) {
