@@ -28,11 +28,12 @@ public class Application {
 
             Apartment.deleteAll();
             Apartment apartment = new Apartment(62000, 1, 0, 350, "123 Main St", "San Francisco", "CA", "95215");
+            apartment.set("is_active", false);
             james.add(apartment);
             apartment.saveIt();
 
             apartment = new Apartment(1459, 5, 6, 4000, "123 Cowboy Way", "Houston", "TX", "77006");
-            apartment.set("is_active", false);
+            apartment.set("is_active", true);
             james.add(apartment);
             apartment.saveIt();
 
