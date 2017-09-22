@@ -10,15 +10,11 @@
 
 	<h2>Active Listings</h2>
 	{{#isActive}}
-		<a href="/apartments/{{id}}">{{address}}</a>
-	{{/isActive}}
-	
+	<a href="/apartments/{{id}}">{{address}}</a> {{/isActive}}
+
 	<h2>Inactive Listings</h2>
 	{{#notActive}}
-		<a href="/apartments/{{id}}">{{address}}</a>
-	{{/notActive}}
-	
-	
+	<a href="/apartments/{{id}}">{{address}}</a> {{/notActive}}
 
 </body>
 </html>

@@ -17,47 +17,27 @@
 		<li>Number of bedrooms: {{apartment.numberOfBedrooms}}</li>
 		<li>Number of bathrooms: {{apartment.numberOfBathrooms}}</li>
 		<li>Square footage: {{apartment.squareFootage}}</li>
-		<li>Number of likes: {{likes.size}}</li> 
-		
-		{{#noUser}}
-			{{#apartment}}
-				<li><a href="/login?returnPath=/apartments/{{id}}">Login to LIKE this apartment</a></li>
-			{{/apartment}}
-		{{/noUser}}
-		
-		{{#canLike}}
-			{{#apartment}}
-				<li>
-					<form method="post" action="/apartments/{{id}}/likes">
-						<button>Like this apartment</button>
-					</form> 
-				</li>
-			{{/apartment}}
-		{{/canLike}} 
-		
-		{{#isOwner}} 
-		
-			{{#likes}} 
-				{{lastName}}, {{firstName}}
-			{{/likes}} 
-			
-			{{#isActive}} 
-				{{#apartment}}
-					<form method="post" action="/apartments/{{id}}/deactivations">
-						<button>Deactivate listing</button>
-					</form>
-				{{/apartment}} 
-			{{/isActive}} 
-			
-			{{#notActive}} 
-				{{#apartment}}
-					<form method="post" action="/apartments/{{id}}/activations">
-						<button>Activate listing</button>
-					</form>
-				{{/apartment}}
-			{{/notActive}} 
-			
-		{{/isOwner}}
+		<li>Number of likes: {{likes.size}}</li> {{#noUser}} {{#apartment}}
+		<li><a href="/login?returnPath=/apartments/{{id}}">Login to
+				LIKE this apartment</a></li> {{/apartment}} {{/noUser}} {{#canLike}}
+		{{#apartment}}
+		<li>
+			<form method="post" action="/apartments/{{id}}/likes">
+				<button>Like this apartment</button>
+				<input type="hidden" name="csrf" value="{{csrf}}">
+			</form>
+		</li> {{/apartment}} {{/canLike}} {{#isOwner}} {{#likes}} {{lastName}},
+		{{firstName}} {{/likes}} {{#isActive}} {{#apartment}}
+		<form method="post" action="/apartments/{{id}}/deactivations">
+			<button>Deactivate listing</button>
+			<input type="hidden" name="csrf" value="{{csrf}}">
+		</form>
+		{{/apartment}} {{/isActive}} {{#notActive}} {{#apartment}}
+		<form method="post" action="/apartments/{{id}}/activations">
+			<button>Activate listing</button>
+			<input type="hidden" name="csrf" value="{{csrf}}">
+		</form>
+		{{/apartment}} {{/notActive}} {{/isOwner}}
 	</ul>
 
 </body>

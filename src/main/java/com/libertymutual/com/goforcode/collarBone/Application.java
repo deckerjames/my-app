@@ -21,27 +21,11 @@ public class Application {
 
         try (AutoCloseableDb db = new AutoCloseableDb()) {
             ApartmentsUsers.deleteAll();
-
             User.deleteAll();
-            User james = new User("jamesdecker@hotmail.com", encryptedPW, "james", "decker");
-            james.saveIt();
-
             Apartment.deleteAll();
-            Apartment apartment = new Apartment(62000, 1, 0, 350, "123 Main St", "San Francisco", "CA", "95215");
-            apartment.set("is_active", false);
-            james.add(apartment);
-            apartment.saveIt();
-
-            apartment = new Apartment(1459, 5, 6, 4000, "123 Cowboy Way", "Houston", "TX", "77006");
-            apartment.set("is_active", true);
-            james.add(apartment);
-            apartment.saveIt();
-
-            encryptedPW = BCrypt.hashpw("t", BCrypt.gensalt());
-            User test = new User("test@gmail", encryptedPW, "first", "last");
-            test.saveIt();
-            apartment.add(test);
         }
+
+        before("/*", SecurityFilters.isNewSession);
 
         path("/apartments", () -> {
             before("/new", SecurityFilters.isAuthenticated);
@@ -53,15 +37,20 @@ public class Application {
 
             get("/new", ApartmentController.newForm);
             get("/mine", ApartmentController.index);
+            before("/:id/deactivations", SecurityFilters.checkCsrf);
             post("/:id/deactivations", ApartmentController.deactivate);
+            before("/:id/activations", SecurityFilters.checkCsrf);
             post("/:id/activations", ApartmentController.activate);
+            before("/:id/likes", SecurityFilters.checkCsrf);
             post("/:id/likes", ApartmentController.like);
             get("/:id", ApartmentController.details);
+            before("", SecurityFilters.checkCsrf);
             post("", ApartmentController.create);
         });
 
         path("/users", () -> {
             get("/new", UserController.newForm);
+            before("/new", SecurityFilters.checkCsrf);
             post("/new", UserController.create);
         });
 
@@ -72,7 +61,9 @@ public class Application {
 
         get("/", HomeController.index);
         get("/login", SessionController.newForm);
+        before("/login", SecurityFilters.checkCsrf);
         post("/login", SessionController.create);
+        before("/logout", SecurityFilters.checkCsrf);
         post("/logout", SessionController.destroy);
     }
 }

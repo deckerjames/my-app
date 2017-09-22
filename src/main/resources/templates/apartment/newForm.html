@@ -12,8 +12,8 @@
 
 	<form method="post" action="/apartments">
 		<ul style="list-style: none">
-			<li><input type="number" name="rent"
-				placeholder="rent amount" required></li>
+			<li><input type="number" name="rent" placeholder="rent amount"
+				required></li>
 			<li><input type="number" name="number_of_bedrooms"
 				placeholder="bedrooms" required></li>
 			<li><input type="number" name="number_of_bathrooms"
@@ -24,7 +24,9 @@
 				required></li>
 			<li><input type="text" name="city" placeholder="city" required></li>
 			<li><input type="text" name="state" placeholder="state" required></li>
-			<li><input type="text" name="zip_code" placeholder="zip code" required></li>
+			<li><input type="text" name="zip_code" placeholder="zip code"
+				required></li>
+			<input type="hidden" name="csrf" value="{{csrf}}">
 
 		</ul>
 		<button>Add listing</button>

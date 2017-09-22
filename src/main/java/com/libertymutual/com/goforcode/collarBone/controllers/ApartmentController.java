@@ -39,6 +39,7 @@ public class ApartmentController {
             model.put("isOwner", isOwner);
             model.put("isActive", apartment.get("is_active"));
             model.put("notActive", apartment.get("is_active").equals(false));
+            model.put("csrf", req.session().attribute("csrf"));
             return MustacheRenderer.getInstance().render("apartment/details.html", model);
         }
     };
@@ -47,6 +48,7 @@ public class ApartmentController {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("currentUser", req.session().attribute("currentUser"));
         model.put("noUser", req.session().attribute("currentUser") == null);
+        model.put("csrf", req.session().attribute("csrf"));
         return MustacheRenderer.getInstance().render("apartment/newForm.html", model);
 
     };
@@ -58,7 +60,7 @@ public class ApartmentController {
             User currentUser = req.session().attribute("currentUser");
             currentUser.add(apt);
             apt.saveIt();
-            res.redirect("/");
+            res.redirect("/apartments/mine");
             return "";
         }
 
@@ -67,7 +69,6 @@ public class ApartmentController {
     public static final Route index = (Request req, Response res) -> {
         try (AutoCloseableDb db = new AutoCloseableDb()) {
             User currentUser = req.session().attribute("currentUser");
-            // List<Apartment> apartments = Apartment.where("user_id = ?", currentUser.getId());
             List<Apartment> active = Apartment.where("user_id = ? and is_active = ?", currentUser.getId(), true);
             List<Apartment> inactive = Apartment.where("user_id = ? and is_active = ?", currentUser.getId(), false);
 
@@ -78,6 +79,7 @@ public class ApartmentController {
 
             model.put("currentUser", req.session().attribute("currentUser"));
             model.put("noUser", currentUser == null);
+            model.put("csrf", req.session().attribute("csrf"));
             return MustacheRenderer.getInstance().render("apartment/index.html", model);
         }
     };

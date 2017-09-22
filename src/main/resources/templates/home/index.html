@@ -10,16 +10,13 @@
 
 	<h1>Apartments!</h1>
 
-	<h2>Active Apartments</h2>
-	{{#activeApartments}}
-	<div>
-		<a href="/apartments/{{id}}">{{address}}</a>
-	</div>
-	{{/activeApartments}} 
-	
-	<div>
-	<a href="/apartments/new">Add a listing</a>
-	</div>
-	
+	<h3>
+		Active Apartments
+		</h2>
+		{{#activeApartments}}
+		<div>
+			<a href="/apartments/{{id}}">{{address}}</a>
+		</div>
+		{{/activeApartments}}
 </body>
 </html>
