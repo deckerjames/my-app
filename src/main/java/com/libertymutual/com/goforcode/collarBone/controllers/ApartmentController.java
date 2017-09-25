@@ -55,14 +55,16 @@ public class ApartmentController {
 
     public static final Route create = (Request req, Response res) -> {
         Apartment apt = new Apartment(Integer.parseInt(req.queryParams("rent")), Integer.parseInt(req.queryParams("number_of_bedrooms")), Double.parseDouble(req.queryParams("number_of_bathrooms")), Integer.parseInt(req.queryParams("square_footage")), req.queryParams("address"), req.queryParams("city"), req.queryParams("state"), req.queryParams("zip_code"));
-
+        
         try (AutoCloseableDb db = new AutoCloseableDb()) {
             User currentUser = req.session().attribute("currentUser");
             currentUser.add(apt);
+            apt.set("is_active", true);
             apt.saveIt();
             res.redirect("/apartments/mine");
             return "";
         }
+        
 
     };
 
